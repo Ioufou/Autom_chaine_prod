@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Rendu "Automatisation de la chaîne de production"</title>
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Gestionnaire de logs</h1>
+
+    <div class="container">
+        <div class="box">
+            <h3>Filtres & Upload</h3>
+            
+            <label>Upload Nouveau Rapport</label>
+            <input type="file" id="logFile" accept=".csv">
+            
+            <div style="margin: 10px 0; display: flex; align-items: center;">
+                <input type="checkbox" id="forceUpload" style="width: auto; margin-right: 8px;">
+                <label for="forceUpload" style="margin: 0; font-weight: normal; cursor: pointer;">
+                    Écraser si le fichier existe déjà
+                </label>
+            </div>
+
+            <button class="btn-primary" onclick="uploadFile()">Envoyer</button>
+            <p id="uploadStatus"></p>
+            
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ddd;">
+            
+            <label>Fichiers en base</label>
+            <div id="importedFilesList" class="file-list-container">
+                <p style="color:#999; font-size:0.8em;">Chargement...</p>
+            </div>
+            
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ddd;">
+
+            <label>Recherche</label>
+            <input type="text" id="s_filename" placeholder="Nom Rapport...">
+            <input type="text" id="s_source" placeholder="Chemin (Source)...">
+            <input type="text" id="s_title" placeholder="Nom Fichier/Dossier...">
+            <input type="text" id="s_status" placeholder="Statut...">
+            <div class="form-group" style="margin-top: 10px;">
+                <label>Résultats par page</label>
+                <input type="number" id="s_limit" value="50" min="50" max="2000">
+            </div>
+
+            <button class="btn-primary" onclick="newSearch()">Rechercher</button>
+            <div id="loadingIndicator" style="text-align:center; padding:20px; color:#999; display:none;">
+                Chargement de la suite...
+            </div>
+            <button class="btn-secondary" onclick="clearSearch()">Effacer</button>
+        </div>
+
+        <div class="box" style="min-height: 500px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 15px;">
+                <h3 style="border:none; margin:0;">Résultats</h3>
+                <button class="btn-view" onclick="toggleView()">Basculer vue</button>
+            </div>
+            
+            <div id="resultsInfo" style="margin-bottom:15px; color:#666; font-style: italic;"></div>
+
+            <div id="treeContainer" class="tree-view"></div>
+            <div id="listContainer" class="hidden"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

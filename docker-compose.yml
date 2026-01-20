@@ -1,0 +1,41 @@
+services:
+  # 1. Frontend & Reverse Proxy (Point d'entrée unique)
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - python-service
+
+  # 2. Service Python (API & Traitement)
+  python-service:
+    build: ./python-service
+    expose:
+      - "5000"
+    depends_on:
+      - redis-broker
+      - mongo-db
+
+  # 3. Message Broker
+  redis-broker:
+    image: redis:alpine
+    expose:
+      - "6379"
+
+  # 4. Worker C# (Écriture BDD)
+  csharp-worker:
+    build: ./csharp-worker
+    depends_on:
+      - redis-broker
+      - mongo-db
+
+  # 5. Base de données
+  mongo-db:
+    image: mongo:latest
+    expose:
+      - "27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
