@@ -24,8 +24,8 @@ L'application repose sur une architecture micro-services grâce à Docker Compos
 Il faut exécuter les lignes suivantes pour lancer le projet :
 
 ```sh
-git clone FAUTPASQUEJ'OUBLIE
-cd ./FAUTPASQUEJ'OUBLIE
+git clone https://github.com/Ioufou/Autom_chaine_prod.git
+cd ./Autom_chaine_prod/
 sudo docker compose up --build -d
 ```
 Les dépendances s'installeront automatiquement.
